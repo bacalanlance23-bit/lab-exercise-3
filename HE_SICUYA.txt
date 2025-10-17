@@ -2,7 +2,7 @@
 
 int main() {
     int choice;
-    float balance = 500.00; // initial balance
+    float balance = 500.00;
     float deposit, withdraw;
 
     do {
@@ -60,3 +60,4 @@ int main() {
 
     return 0;
 }
+
