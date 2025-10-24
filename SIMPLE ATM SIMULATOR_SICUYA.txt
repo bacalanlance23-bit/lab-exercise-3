@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int main() {
+    float balance = 0.00, amount;
+    int choice;
+    char again;
+
+    do {
+        printf("<<< SIMPLE ATM SIMULATOR >>>\n");
+        printf("\n[1] Check Balance\n");
+        printf("[2] Deposit\n");
+        printf("[3] Withdraw\n");
+        printf("[4] Exit\n");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Your current balance is: P%.2f\n", balance);
+        } 
+        else if (choice == 2) {
+            printf("Enter amount to deposit: P");
+            scanf("%f", &amount);
+            if (amount <= 0) {
+                printf("Invalid amount. Must be greater than 0.\n");
+            } else {
+                balance += amount;
+                printf("\nYou have successfully deposited: P%.2f\n", amount);
+            }
+        } 
+        else if (choice == 3) {
+            printf("Enter amount to withdraw: P");
+            scanf("%f", &amount);
+            if (amount > balance) {
+                printf("Insufficient balance.P\n");
+            } else if (amount <= 0) {
+                printf("Invalid amount. Must be greater than 0.\n");
+            } else {
+                balance -= amount;
+                printf("You have successfully withdrawn P%.2f\n", amount);
+            }
+            printf("Exiting program...\n");
+        } 
+        else if (choice == 4) {
+        } 
+        else {
+            printf("Invalid choice. Please select 1-4.\n");
+        }
+
+        if (choice != 4) {
+            printf("Would you like another transaction? [Y/N]:");
+            scanf(" %c", &again);
+        } else {
+            again = 'N';
+        }
+
+    } while (again == 'Y' || again == 'y');
+
+    printf("\nThank you for using the ATM.\n");
+    return 0;
+}
