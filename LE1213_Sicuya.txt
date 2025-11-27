@@ -1,41 +1,56 @@
 #include <stdio.h>
 
 int main() {
-    FILE *file;
-    char name[100], section[50];
-    char readName[100];
-
-    printf("Enter your Complete Name: ");
-    fgets(name, sizeof(name), stdin);
-
-    printf("Enter your Section: ");
-    fgets(section, sizeof(section), stdin);
-
-    file = fopen("student.txt", "w");
-    if (file == NULL) {
+    FILE *fp;
+    char name[50], course[50];
+    int age, numStudents;
+    
+    fp = fopen("student_records.txt", "w");
+    if (fp == NULL) {
         printf("Error opening file!\n");
         return 1;
     }
 
-    fprintf(file, "Name: %s", name);
-    fprintf(file, "Section: %s", section);
-    fclose(file);
+    printf("How many student records do you want to store? ");
+    scanf("%d", &numStudents);
 
-    printf("\nData has been saved successfully to 'student.txt'!\n");
+    getchar();
 
-    file = fopen("student.txt", "r");
-    if (file == NULL) {
+    for (int i = 1; i <= numStudents; i++) {
+        printf("\n--- Student %d ---\n", i);
+
+        printf("Enter Name: ");
+        fgets(name, sizeof(name), stdin);
+
+        printf("Enter Age: ");
+        scanf("%d", &age);
+        getchar();
+
+        printf("Enter Course: ");
+        fgets(course, sizeof(course), stdin);
+
+        fprintf(fp, "Name: %s", name);
+        fprintf(fp, "Age: %d\n", age);
+        fprintf(fp, "Course: %s\n", course);
+        fprintf(fp, "-------------------------\n");
+    }
+
+    fclose(fp);
+
+    fp = fopen("student_records.txt", "r");
+    if (fp == NULL) {
         printf("Error reading file!\n");
         return 1;
     }
 
-    printf("\n--- Reading from student.txt ---\n");
-    while (fgets(readName, sizeof(readName), file) != NULL) {
-        printf("%s", readName);
+    printf("\n\n=== Stored Student Records ===\n\n");
+
+    char line[200];
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        printf("%s", line);
     }
 
-    fclose(file);
-    printf("\n-------------------------------\n");
+    fclose(fp);
 
     return 0;
 }
