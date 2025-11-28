@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char id[20], name[50], section[20];
+    int choice = 1;
+
+    fp = fopen("student_records.txt", "a");
+
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    printf("=== Student Record System ===\n");
+
+    while (choice == 1) {
+        printf("\nEnter ID Number: ");
+        fgets(id, sizeof(id), stdin);
+
+        printf("Enter Complete Name: ");
+        fgets(name, sizeof(name), stdin);
+
+        printf("Enter Section: ");
+        fgets(section, sizeof(section), stdin);
+
+    
+        fprintf(fp, "ID Number: %s", id);
+        fprintf(fp, "Name: %s", name);
+        fprintf(fp, "Section: %s\n", section);
+
+        printf("\nRecord saved successfully!\n");
+
+        printf("\nDo you want to add another record? (1 = Yes, 0 = No): ");
+        scanf("%d", &choice);
+        getchar();
+    }
+
+    fclose(fp);
+    printf("\nAll records saved to student_records.txt\n");
+
+    return 0;
+}
